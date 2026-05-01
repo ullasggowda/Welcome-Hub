@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RotoMetrics Welcome Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:       #2A3987;
+      --navy-dark:  #1e2a66;
+      --navy-light: #3a4fa0;
+      --red:        #C8102E;
+      --white:      #FFFFFF;
+      --gray-50:    #f8f9fc;
+      --gray-100:   #eef0f5;
+      --gray-200:   #d8dbe8;
+      --gray-400:   #9ca3af;
+      --gray-600:   #6b7280;
+      --gray-800:   #1f2937;
+      --shadow-sm:  0 1px 3px rgba(42,57,135,0.08);
+      --shadow-md:  0 4px 16px rgba(42,57,135,0.12);
+      --shadow-lg:  0 8px 32px rgba(42,57,135,0.18);
+      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+      --radius:     10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Roboto', sans-serif; background: var(--white); color: var(--gray-800); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* HEADER */
+    .site-header {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      box-shadow: 0 2px 12px rgba(42,57,135,0.10);
+      padding: 0 28px; height: 68px;
+      display: flex; align-items: center;
+    }
+    .header-logo { display: flex; align-items: center; gap: 14px; }
+    .header-logo img { height: 65px; width: auto; object-fit: contain; }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 55%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 64px 40px 56px;
+      overflow: hidden;
+      border-top: 4px solid var(--red);
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 16px;
+    }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; }
+    .hero h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.5px; }
+    .hero h1 span { color: #ff8097; }
+    .hero-sub { font-size: 1.05rem; color: rgba(255,255,255,0.8); max-width: 560px; margin-bottom: 44px; font-weight: 300; }
+
+    .quick-nav { display: flex; flex-wrap: wrap; gap: 12px; }
+    .nav-card {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 8px; padding: 12px 20px;
+      color: var(--white); text-decoration: none;
+      font-size: 0.88rem; font-weight: 500;
+      transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .nav-card:hover { background: var(--red); border-color: var(--red); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(200,16,46,0.35); }
+
+    /* SECTION */
+    .section { padding: 40px 40px; }
+    .section:nth-child(even) { background: var(--gray-50); }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .section-label::before { content: ''; display: inline-block; width: 18px; height: 2px; background: var(--red); border-radius: 2px; }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; color: var(--navy); margin-bottom: 8px; line-height: 1.2; }
+    .section-intro { font-size: 1rem; color: var(--gray-600); margin-bottom: 48px; max-width: 640px; }
+
+    /* WHO WE ARE */
+    .who-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; align-items: start; }
+    .who-tagline { font-size: 1.2rem; font-weight: 700; color: var(--navy); line-height: 1.4; border-left: 4px solid var(--red); padding-left: 20px; margin-bottom: 20px; }
+    .who-body { font-size: 0.95rem; color: var(--gray-600); margin-bottom: 32px; line-height: 1.75; }
+    .stats-row-dark { display: flex; flex-wrap: wrap; gap: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-200); }
+    .stat-item-dark { flex: 1 1 100px; padding: 28px 24px; background: var(--navy); border-right: 1px solid rgba(255,255,255,0.1); }
+    .stat-item-dark:last-child { border-right: none; }
+    .stat-number { font-size: 1.5rem; font-weight: 900; color: var(--white); line-height: 1; margin-bottom: 4px; }
+    .stat-number em { font-style: normal; color: #ff8097; }
+    .stat-label { font-size: 0.68rem; color: rgba(255,255,255,0.6); font-weight: 500; text-transform: uppercase; }
+    .who-media-col { display: flex; flex-direction: column; gap: 0; }
+    .who-media-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray-600); margin-bottom: 8px; }
+    .facility-img-wrap { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 16/9; width: 100%; }
+    .facility-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .who-video-wrap { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid var(--gray-200); aspect-ratio: 16/9; width: 100%; }
+    .who-video-embed { position: relative; width: 100%; height: 100%; }
+    .who-video-embed iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* TRAINING */
+    .video-player { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); }
+    .video-chrome { background: #1e1e1e; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .chrome-dots { display: flex; gap: 7px; }
+    .chrome-dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red    { background: #ff5f57; }
+    .dot-yellow { background: #febc2e; }
+    .dot-green  { background: #28c840; }
+    .chrome-title { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.6); }
+    .video-embed { position: relative; padding-bottom: 40%; height: 0; background: #000; }
+    .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+    .area-category-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--navy);
+      margin-bottom: 12px; margin-top: 4px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .area-category-label::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--gray-200);
+    }
+
+    /* AREA GUIDE */
+    .area-header-row { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 36px; }
+    .area-address { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); font-size: 0.82rem; font-weight: 500; padding: 8px 16px; border-radius: 8px; }
+    .area-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+    .area-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; transition: border-color var(--transition), box-shadow var(--transition); }
+    .area-card:hover { border-color: var(--red); box-shadow: var(--shadow-sm); }
+    .area-card-name { font-size: 0.95rem; font-weight: 700; color: var(--navy); }
+    .area-card-dist { font-size: 0.72rem; font-weight: 700; color: var(--gray-600); }
+
+    /* FOOTER */
+    .site-footer { background: var(--navy); color: rgba(255,255,255,0.55); text-align: center; padding: 22px 40px; border-top: 3px solid var(--red); font-size: 0.8rem; }
+    .site-footer strong { color: var(--white); }
+
+    @media (max-width: 1100px) { .who-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px)  { .section { padding: 48px 20px; } .hero { padding: 48px 20px 40px; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-logo">
+      <img
+        src="https://rotometrics.sharepoint.com/sites/OMProject-EngineeringCo-Op-Internal/Shared%20Documents/General/Welcome%20Hub/Media/imagelogo.png"
+        alt="RotoMetrics Logo"
+        onerror="this.style.display='none'; document.getElementById('logo-text').style.display='block'"
+      />
+      <div id="logo-text" style="display:none; font-size:1.35rem; font-weight:900; color:#2A3987; letter-spacing:-0.5px;">
+        ROTOMETRICS <span style="color:#C8102E; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; vertical-align:middle;">A MAXCESS BRAND</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-eyebrow">RotoMetrics Welcome Hub</div>
+      <h1>Welcome to the<br /><span>RotoMetrics</span> Family</h1>
+      <p class="hero-sub">You've joined the world leader in precision rotary tooling. This portal is your starting point — everything you need for Day One.</p>
+      <div class="quick-nav">
+        <a class="nav-card" href="#who-we-are">🏭 Who We Are</a>
+        <a class="nav-card" href="#training">🎓 Required Training</a>
+        <a class="nav-card" href="#area-guide">📍 Area Guide</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO WE ARE -->
+ <section class="section" id="who-we-are">
+  <div class="section-label">Our Company</div>
+  <h2 class="section-title">Who We Are</h2>
+  <div>
+    <p class="who-tagline">"We're Maxcess. We provide solutions that help you work better, faster and smarter."</p>
+    <p class="who-body">Maxcess is a global leader in precision web handling solutions. Headquartered in Eureka, Missouri, RotoMetrics combines decades of engineering expertise with cutting-edge manufacturing to produce the world's most precise rotary tooling.
+
+Maxcess saves you time and money by optimizing your peak output performance. We do this by leveraging the world's best web handling brands, offering customized end-to-end web handling solutions. We manufacture all of our components to meet the highest standard of precision, with the deep application knowledge behind how each component works better together across your converting line. All to provide unmatched product integration and precise positioning from unwind to rewind</p>
+    <div class="stats-row-dark">
+      <div class="stat-item-dark"><div class="stat-number">60<em>+</em></div><div class="stat-label">Years</div></div>
+      <div class="stat-item-dark"><div class="stat-number">11</div><div class="stat-label">Countries</div></div>
+      <div class="stat-item-dark"><div class="stat-number">2000<em>+</em></div><div class="stat-label">Employees</div></div>
+    </div>
+
+    <!-- Image and Video below stats -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;">
+
+      <div class="who-media-col">
+        <div class="who-media-label">Our Facility</div>
+        <div class="facility-img-wrap">
+          <img
+            src="https://rotometrics.sharepoint.com/sites/OMProject-EngineeringCo-Op-Internal/Shared%20Documents/General/Welcome%20Hub/Media/download.png"
+            alt="RotoMetrics Facility"
+            onerror="this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:#1e2a66;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.4);font-size:0.85rem;\'>RotoMetrics Facility</div>'"
+          />
+        </div>
+      </div>
+
+      <div class="who-media-col">
+        <div class="who-media-label">Company Overview</div>
+        <div class="who-video-wrap">
+          <div class="who-video-embed">
+            <iframe
+              src="https://rotometrics.sharepoint.com/sites/OMProject-EngineeringCo-Op-Internal/_layouts/15/embed.aspx?UniqueId=36cd8dbe-6fe8-480e-bdda-ea7a27d103bb&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+              frameborder="0" scrolling="no" allowfullscreen
+              title="Maxcess- A Great Place To Work For Everyone.mp4">
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+  <!-- REQUIRED TRAINING -->
+  <section class="section" id="training">
+    <div class="section-label">Onboarding</div>
+    <h2 class="section-title">Required Training</h2>
+    <p class="section-intro">Complete this module during your first week. More training modules will be added regularly.</p>
+    <div class="video-player" style="max-width: 50%;">
+      <div class="video-chrome">
+        <div class="chrome-dots">
+          <div class="chrome-dot dot-red"></div>
+          <div class="chrome-dot dot-yellow"></div>
+          <div class="chrome-dot dot-green"></div>
+        </div>
+        <span class="chrome-title">Training Series — Engineering Resource Center</span>
+  
+      </div>
+      <div class="video-embed">
+        <iframe
+          src="https://rotometrics.sharepoint.com/sites/OMProject-EngineeringCo-Op-Internal/_layouts/15/embed.aspx?UniqueId=3ca79356-d428-44c3-8833-22c23fd4cee4&embed=%7B%22hvm%22%3Atrue%2C%22ust%22%3Atrue%7D&referrer=StreamWebApp&referrerScenario=EmbedDialog.Create"
+          frameborder="0" scrolling="no" allowfullscreen
+          title="Training Series_Engineering Resource Center.mp4">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- AREA GUIDE -->
+  <section class="section" id="area-guide">
+    <div class="section-label">Local Area</div>
+    <div class="area-header-row">
+      <h2 class="section-title">Area Guide</h2>
+      <div class="area-address">📍 800 Howerton Lane, Eureka, MO 63025</div>
+    </div>
+
+    <!-- Food & Dining -->
+    <div class="area-category-label">🍽️ Food &amp; Dining</div>
+    <div class="area-cards" style="margin-bottom:32px">
+      <div class="area-card"><div class="area-card-name">Altos Cantina Mexican Kitchen</div><div class="area-card-dist">0.6 mi</div></div>
+      <div class="area-card"><div class="area-card-name">China King</div><div class="area-card-dist">0.6 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Subway</div><div class="area-card-dist">0.6 mi</div></div>
+      <div class="area-card"><div class="area-card-name">McDonald's</div><div class="area-card-dist">1.0 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Panera Bread</div><div class="area-card-dist">2.8 mi</div></div>
+    </div>
+
+    <!-- Groceries & Shopping -->
+    <div class="area-category-label">🛒 Groceries &amp; Shopping</div>
+    <div class="area-cards" style="margin-bottom:32px">
+      <div class="area-card"><div class="area-card-name">Dollar Tree</div><div class="area-card-dist">0.6 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Walmart</div><div class="area-card-dist">0.6 mi</div></div>
+      <div class="area-card"><div class="area-card-name">ALDI</div><div class="area-card-dist">0.8 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Walgreens</div><div class="area-card-dist">2.8 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Schnucks</div><div class="area-card-dist">2.8 mi</div></div>
+    </div>
+
+    <!-- Gas Stations -->
+    <div class="area-category-label">⛽ Gas Stations</div>
+    <div class="area-cards" style="margin-bottom:32px">
+      <div class="area-card"><div class="area-card-name">Phillips Gas Station</div><div class="area-card-dist">2.0 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Circle K</div><div class="area-card-dist">2.7 mi</div></div>
+      <div class="area-card"><div class="area-card-name">QuikTrip</div><div class="area-card-dist">2.8 mi</div></div>
+    </div>
+
+    <!-- Hotels & Attractions -->
+    <div class="area-category-label">🏨 Hotels &amp; Attractions</div>
+    <div class="area-cards" style="margin-bottom:32px">
+      <div class="area-card"><div class="area-card-name">Holiday Inn — Six Flags by IHG</div><div class="area-card-dist">0.5 mi</div></div>
+      <div class="area-card"><div class="area-card-name">Six Flags St. Louis</div><div class="area-card-dist">1.8 mi</div></div>
+    </div>
+
+    <!-- Other -->
+    <div class="area-category-label">📚 Other</div>
+    <div class="area-cards">
+      <div class="area-card"><div class="area-card-name">St. Louis County Library — Eureka Hills</div><div class="area-card-dist">0.5 mi</div></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    &copy; 2026 <strong>RotoMetrics</strong> — A Maxcess Brand. Internal Use Only.
+  </footer>
+
+</body>
+</html>
